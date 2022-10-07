@@ -34,6 +34,7 @@ export function CartProvider({children}) {
 
   const [state, dispatch] = useReducer(cartReducer, {
     products : products,
+    filterdProducts: products,
     cart:[]
   })
 
@@ -62,6 +63,7 @@ export function CartProvider({children}) {
   }, [state.cart])
 
   const value = {
+    products,
     state,
     dispatch,
     amount,
