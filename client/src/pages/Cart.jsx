@@ -1,8 +1,8 @@
 import React from 'react'
 import { useCart } from '../context/CartContext'
-import Billing from './Billing';
-import CartItemCard from './CartItemCard';
-import ItemCard from './ItemCard';
+import Billing from '../components/Billing';
+import CartItemCard from '../components/CartItemCard';
+import { Link } from 'react-router-dom';
 
 export default function Cart() {
   const { state } = useCart()
@@ -11,6 +11,7 @@ export default function Cart() {
     <div className="w-full flex grow">
       <div className='w-2/3 max-h-screen flex flex-col gap-2 p-2 overflow-auto'>
         <div className='text-black border-b-2 border-black p-1 text-center text-xl font-bold'>Cart</div>
+        <div>add <Link className='underline' to={'/'}>items</Link>  to cart </div>
         {cart.map((p, key) => {
           return <CartItemCard key={key} product = {p} />
         })}

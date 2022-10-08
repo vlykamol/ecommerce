@@ -1,6 +1,6 @@
 import React from 'react'
-import Page from './Page';
-import Sorting from "./Sorting";
+import Page from '../components/Page';
+import Sorting from "../components/Sorting";
 
 export default function Dashbord() {
   return (

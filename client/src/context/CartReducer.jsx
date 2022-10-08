@@ -54,7 +54,7 @@ export function cartReducer (state, action) {
     }
 
     case types.CLEAR_FILTERS : {
-      return {...state, filterdProducts : action.payload}
+      return {...state, filterdProducts : [...state.products]}
     }
     default:
       return state;

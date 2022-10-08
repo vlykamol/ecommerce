@@ -23,10 +23,9 @@ app.use(function(req, res, next) {
   next();
 })
 
+const authRoute = require('./route/authRoute')
 //routes
-app.get('/', (req, res) => {
-  res.send('hey')
-})
+app.use('/auth', authRoute)
 
 
 app.get("/*", (req, res) => {

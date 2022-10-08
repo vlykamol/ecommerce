@@ -10,7 +10,7 @@ export default function SearchBar() {
       <input onChange={(e) => dispatch({
         type : types.SEARCH_QUERY,
         payload : e.target.value
-      })} type="text" className='bg-transparent focus:outline-none'/>
+      })} type="text" className='bg-transparent focus:outline-none' placeholder='search...'/>
       {/* <button className='bg-transparent focus:outline-none'>search</button> */}
     </div>
   )
