@@ -26,6 +26,7 @@ export const types = {
 }
 
 export function CartProvider({children}) {
+
   
   const [loading, setLoading] = useState(false)
   const [products, setproducts] = useState([])
@@ -40,7 +41,7 @@ export function CartProvider({children}) {
 
   useEffect(() => {
     setLoading(true)
-    axios.get('https://fakestoreapi.com/products').then(res => setproducts(res.data)).catch(err => console.log(err))
+    axios.get('http://localhost:8080/products').then(res => setproducts(res.data)).catch(err => console.log(err))
     setLoading(false)
   },[])
   

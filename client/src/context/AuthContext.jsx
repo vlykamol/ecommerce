@@ -25,6 +25,7 @@ export function AuthProvider({children}){
     setMessage('');
     axios.post('http://localhost:8080/auth/signup',  {firstName, lastName, email, password}).then(res => {
       console.log(res)
+      navigate('/login')
     }).catch(err => {
       console.log("err", err);
       setMessage('error while signing up')
