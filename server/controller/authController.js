@@ -2,8 +2,10 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const userTemplate = require("../model/user");
 const profileTemplate = require("../model/profile");
+const cartTemplate = require('../model/cart')
 const user = require("../model/user");
 const profile = require("../model/profile");
+const cart = require('../model/cart')
 const salt = bcrypt.genSaltSync(10);
 require("dotenv").config();
 
@@ -22,7 +24,11 @@ module.exports = {
           firstName: req.body.firstName,
           lastName: req.body.lastName,
         });
+        const cart = new cartTemplate({
+          _id: data.id
+        })
         profile.save().then(data => console.log('profile created', data)).catch(err => console.log('error while saving profile', err))
+        cart.save().then(data => console.log('cart created', data)).catch(err => console.log('error while saving cart', err))
         res.json({ message : "successfully created account"});
       })
       .catch((err) => {

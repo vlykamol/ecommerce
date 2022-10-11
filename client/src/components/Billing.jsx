@@ -11,8 +11,8 @@ export default function Billing() {
           return (
             <div key={key} className='border-b-2 border-black'>
               <div>{p.title}</div>
-              <div>Qty : {p.qty}</div>
-              <div>Price : {(p.price * p.qty).toFixed(2)}</div>
+              <div>Qty : {p.quantity}</div>
+              <div>Price : {(p.price * p.quantity).toFixed(2)}</div>
             </div>
           )
         })}

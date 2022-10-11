@@ -12,8 +12,8 @@ import Profile from "./pages/Profile";
 
 function App() {
   return (
-    <CartProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <CartProvider>
       <div className="flex flex-col w-full min-h-screen text-white">
           <Navbar />
           <Routes>
@@ -21,12 +21,12 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/" element={<Dashbord />} />
             <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-            <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
           <Footer />
       </div>
-      </AuthProvider>
-    </CartProvider>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 

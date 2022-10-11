@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios"
 import { useReducer } from "react";
 import { cartReducer } from "./CartReducer";
+import { useAuth } from "./AuthContext";
 
 
 const CartContext = createContext()
@@ -12,10 +13,12 @@ export function useCart() {
 
 export const types = {
   SET_PRODUCTS : "setProducts",
+  SET_CART : "setCart",
   ADD_TO_CART : "addToCart",
   REMOVE_FROM_CART : "removeFromCart",
   INCREMENT_ITEM : "incrementItem",
   DECREMENT_ITEM : 'decrementItem',
+  UPDATE_CART : "updateCart",
   BY_PRICE : "byPrice",
   BY_CATEGORY: "byCategory",
   BY_RATING : "byRating",
@@ -27,6 +30,7 @@ export const types = {
 
 export function CartProvider({children}) {
 
+  const { user } = useAuth()
   
   const [loading, setLoading] = useState(false)
   const [products, setproducts] = useState([])
@@ -41,7 +45,25 @@ export function CartProvider({children}) {
 
   useEffect(() => {
     setLoading(true)
-    axios.get('http://localhost:8080/products').then(res => setproducts(res.data)).catch(err => console.log(err))
+    axios.get('http://localhost:8080/products').then(res => {
+      setproducts(res.data)
+    }).catch(err => console.log(err))
+
+    if(user.accessToken){
+      axios.get('http://localhost:8080/user/cart', {
+        headers:{
+          authorization : `Bearer ${user.accessToken}`
+        }
+      }).then(res => {
+        console.log();
+        dispatch({
+          type: types.SET_CART,
+          payload : [...res.data.products.map(p => {
+            return {...p._id, quantity: p.quantity}
+          })]
+        })
+      }).catch(err => console.log(err))
+    }
     setLoading(false)
   },[])
   
@@ -57,8 +79,9 @@ export function CartProvider({children}) {
 
   useEffect(() => {
     let count = 0;
+    console.log('state.cart--', state.cart);
     state.cart.map(c => {
-      count += c.qty * c.price
+      count += c.quantity * c.price
     })
     setAmount(count.toFixed(2))
   }, [state.cart])

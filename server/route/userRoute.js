@@ -9,8 +9,8 @@ router.post('/profile', userController.updateProfile)
 // router.get('/address', )
 // router.post('/address', )
 
-// router.get('/cart', )
-// router.post('/cart', )
+router.get('/cart', userController.getCart)
+router.post('/cart', userController.updateCart)
 
 // router.get('/invoice', )
 

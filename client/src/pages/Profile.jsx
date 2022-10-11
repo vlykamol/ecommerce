@@ -20,7 +20,6 @@ export default function Profile() {
         },
       })
       .then((res) => {
-        console.log(res.data);
         firstNameRef.current.value = res.data.firstName;
         lastNameRef.current.value = res.data.lastName;
         contactRef.current.value = res.data.contact;
@@ -43,7 +42,6 @@ export default function Profile() {
         }
       })
       .then((res) => {
-        console.log('updated data',res.data);
         firstNameRef.current.value = res.data.firstName;
         lastNameRef.current.value = res.data.lastName;
         contactRef.current.value = res.data.contact;
@@ -57,7 +55,7 @@ export default function Profile() {
     <div className="flex grow flex-col">
       <form
         onSubmit={(e) => updateProfile(e)}
-        className="bg-white/25 flex flex-col p-2"
+        className="bg-white/25 flex flex-col p-2 gap-2"
         id="profileForm"
       >
         <div className="w-full flex justify-between p-2">

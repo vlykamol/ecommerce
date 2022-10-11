@@ -18,8 +18,16 @@ const productTemplate = new mongoose.Schema({
       },
     },
   ],
+  category:{
+    type: String
+  },
   ratings: {
-    type: Number,
+      rate:{
+        type: Number
+      },
+      count:{
+        type: Number
+      }
   },
   stock: {
     type: Number,
