@@ -11,7 +11,6 @@ export default function SearchBar() {
         type : types.SEARCH_QUERY,
         payload : e.target.value
       })} type="text" className='bg-transparent focus:outline-none' placeholder='search...'/>
-      {/* <button className='bg-transparent focus:outline-none'>search</button> */}
     </div>
   )
 }

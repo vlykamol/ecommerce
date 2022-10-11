@@ -25,6 +25,7 @@ app.use(cors())
 
 const authRoute = require('./route/authRoute')
 const userRoute = require('./route/userRoute')
+const productRoute = require('./route/productRoute')
 const { jwtAuth } = require('./middelware/jwtAuth')
 //routes
 app.use('/auth', authRoute)
@@ -32,27 +33,8 @@ app.use('/user', jwtAuth, userRoute)
 
 
 const product = require('./model/product')
-app.get('/products', (req, res) => {
-  // axios.get('https://fakestoreapi.com/products').then(r => res.json(r.data)).catch(err => console.log(err))
+app.use('/products', productRoute)
 
-  product.find().then(r => {
-    res.json(r)
-  }).catch(err => console.log(err))
-})
-
-// r.data.map(p => {
-//   const product = new productTemplate({
-//     title : p.title,
-//     description: p.description,
-//     price : p.price,
-//     images : [{url : p.image}],
-//     category: p.category,
-//     ratings: { rate : p.rating.rate, count: p.rating.count},
-//     stock: 100
-//   })
-//   product.save()
-//   console.log('products, added');
-// })
 
 
 app.get("/*", (req, res) => {
@@ -62,3 +44,6 @@ app.get("/*", (req, res) => {
 server.listen(PORT, () => {
   console.log(`app is running on http://localhost:${PORT}`);
 })
+
+
+// payment -> oders

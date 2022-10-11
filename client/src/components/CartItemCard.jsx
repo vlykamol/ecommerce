@@ -12,9 +12,9 @@ export default function CartItemCard(props) {
   } = useCart();
   
   return (
-    <div className="flex w-fuhl items-center rounded-lg text-white bg-slate-900/90">
-      <div className="w-1/3 h-full flex justify-center rounded-lg bg-white">
-        <img src={`${images[0].url}`} className="object-scale-down p-2" />
+    <div className="flex flex-col sm:flex-row w-full items-center rounded-lg text-white bg-slate-900/90">
+      <div className="w-full sm:w-1/3 h-full flex justify-center rounded-lg bg-white">
+        <img src={`${images[0].url}`} className="object-scale-down p-2 w-1/2 sm:w-full" />
       </div>
       <div className="h-full w-full p-2 flex flex-col justify-between">
         <p className="text-base font-bold">{title}</p>

@@ -7,7 +7,7 @@ export default function Page() {
   const {filterdProducts} = state
 
   return (
-    <div className="w-full flex flex-wrap gap-2">
+    <div className="w-full flex flex-wrap gap-2 justify-center">
       {filterdProducts.map((p, key) => {
         return <ItemCard key={key} product = {p} />
       })}

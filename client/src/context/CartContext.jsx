@@ -55,7 +55,6 @@ export function CartProvider({children}) {
           authorization : `Bearer ${user.accessToken}`
         }
       }).then(res => {
-        console.log();
         dispatch({
           type: types.SET_CART,
           payload : [...res.data.products.map(p => {
@@ -79,7 +78,6 @@ export function CartProvider({children}) {
 
   useEffect(() => {
     let count = 0;
-    console.log('state.cart--', state.cart);
     state.cart.map(c => {
       count += c.quantity * c.price
     })

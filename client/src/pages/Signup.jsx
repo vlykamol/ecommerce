@@ -28,7 +28,7 @@ export default function Signup() {
 
   return (
     <div className="grow flex justify-center items-center">
-      <div className="bg-black/80 p-2 w-full md:w-72 h-auto rounded">
+      <div className="bg-black/80 p-2 w-full sm:w-72 h-auto rounded">
         <form
           onSubmit={(e) => handelSignUp(e)}
           className="flex flex-col gap-2"

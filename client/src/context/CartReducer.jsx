@@ -34,7 +34,6 @@ export function cartReducer (state, action) {
     }
 
     case types.UPDATE_CART : {
-        console.log("updating cart", state.cart);
         if (action.payload.accessToken) {
           axios
             .post(

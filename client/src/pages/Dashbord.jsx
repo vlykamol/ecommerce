@@ -4,7 +4,7 @@ import Sorting from "../components/Sorting";
 
 export default function Dashbord() {
   return (
-    <div className='w-full h-full grow flex p-4 gap-4'>
+    <div className='w-full z-0 h-full grow flex flex-col sm:flex-row p-4 gap-4'>
       <Sorting />
       <Page />
     </div>
