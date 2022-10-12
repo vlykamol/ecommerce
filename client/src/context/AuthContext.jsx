@@ -2,7 +2,6 @@ import { createContext, useContext, useState } from "react";
 import {  useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import useSessionStorage from "../utilities/useSessionStorage";
-import { useEffect } from "react";
 
 
 const AuthContext = createContext(null)

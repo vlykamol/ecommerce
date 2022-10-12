@@ -26,16 +26,13 @@ app.use(cors())
 const authRoute = require('./route/authRoute')
 const userRoute = require('./route/userRoute')
 const productRoute = require('./route/productRoute')
+const paymentRoute = require('./route/paymentRoute')
 const { jwtAuth } = require('./middelware/jwtAuth')
 //routes
 app.use('/auth', authRoute)
 app.use('/user', jwtAuth, userRoute)
-
-
-const product = require('./model/product')
 app.use('/products', productRoute)
-
-
+app.use('/payment', paymentRoute)
 
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, '../client//dist/index.html'))
