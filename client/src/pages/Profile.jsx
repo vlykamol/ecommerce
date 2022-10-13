@@ -2,18 +2,26 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
+import { types, useAuth } from "../context/AuthContext";
 import Address from "../components/Address";
 
 export default function Profile() {
-  const { user } = useAuth();
-
+  const { user, state , dispatch } = useAuth();
+  const { profile } = state
   const [isEditable, setIsEditable] = useState(false);
+  const [refresh, setRefresh] = useState(false)
 
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const contactRef = useRef();
   const dobRef = useRef();
+
+  useEffect(() => {
+    firstNameRef.current.value = profile.firstName,
+    lastNameRef.current.value = profile.lastName,
+    contactRef.current.value = profile.contact,
+    dobRef.current.value = profile.DOB 
+  }, [refresh])
 
   useEffect(() => {
     axios
@@ -23,12 +31,18 @@ export default function Profile() {
         },
       })
       .then((res) => {
-        firstNameRef.current.value = res.data.firstName;
-        lastNameRef.current.value = res.data.lastName;
-        contactRef.current.value = res.data.contact;
-        dobRef.current.value = res.data.DOB.split('T')[0];
+        dispatch({
+          type: types.SET_PROFILE,
+          payload : {
+            firstName : res.data.firstName,
+            lastName : res.data.lastName,
+            contact : res.data.contact,
+            DOB : res.data.DOB.split('T')[0]
+          }
+        })
+        setRefresh(e => e = !e)
       })
-      .catch((err) => console.log(err));    
+      .catch((err) => console.log(err));
   }, []);
 
   const updateProfile = (e) => {
@@ -45,10 +59,15 @@ export default function Profile() {
         }
       })
       .then((res) => {
-        firstNameRef.current.value = res.data.firstName;
-        lastNameRef.current.value = res.data.lastName;
-        contactRef.current.value = res.data.contact;
-        dobRef.current.value = res.data.DOB.split('T')[0];
+        dispatch({
+          type: types.SET_PROFILE,
+          payload : {
+            firstName : res.data.firstName,
+            lastName : res.data.lastName,
+            contact : res.data.contact,
+            DOB : res.data.DOB.split('T')[0]
+          }
+        })
         setIsEditable((e) => (e = !e));
       })
       .catch((err) => console.log(err));

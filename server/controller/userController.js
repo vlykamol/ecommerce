@@ -11,10 +11,10 @@ module.exports = {
   getProfile : async (req, res) => {
     const _id = req.user._id
     profile.findById(_id).then(data => {
-      console.log('profile data', data);
+      // console.log('profile data', data);
       res.json(data)
     }).catch(err => {
-      console.log('error at getting profile', err);
+      // console.log('error at getting profile', err);
       res.status(401).json({error : err.message})
     })
   }, 
@@ -22,13 +22,13 @@ module.exports = {
   updateProfile: (req, res) => {
     const _id = req.user._id
     const newProfile = new profileTemplate({...req.body})
-    console.log('newProfile', newProfile);
+    // console.log('newProfile', newProfile);
     profile.findOneAndUpdate(_id, newProfile, {upsert
     : true, new: true}).then(data => {
-      console.log('updated data', data);
+      // console.log('updated data', data);
       res.json(data)
     }).catch(err => {
-      console.log('error at updating', err);
+      // console.log('error at updating', err);
       res.status(401).json({error : err.message})
     })
   },
@@ -39,7 +39,7 @@ module.exports = {
       // console.log('cart data ---', data);
       res.json(data)
     }).catch(err => {
-      console.log('error at getting cart', err);
+      // console.log('error at getting cart', err);
       res.status(401).json({error : err.message})
     })
   },
@@ -52,13 +52,13 @@ module.exports = {
         return {_id : c._id , quantity : c.quantity}
       })]
     })
-    console.log('newCart', newCart);
+    // console.log('newCart', newCart);
     cart.findOneAndUpdate(_id, newCart, {upsert
     : true, new: true}).populate({path: 'products._id'}).then(data => {
       // console.log('updated data', data);
       res.json(data)
     }).catch(err => {
-      console.log('error at updating', err);
+      // console.log('error at updating', err);
       res.status(401).json({error : err.message})
     })
   },
@@ -66,7 +66,7 @@ module.exports = {
   getAddress : (req, res) => {
     const _id = req.user._id
     address.findById(_id).then(data => {
-      console.log('address', data);
+      // console.log('address', data);
       res.json(data)
     }).catch(err => res.status(401).json({error : err.message}))
   },
@@ -83,10 +83,10 @@ module.exports = {
     })
     addres.updateOne({_id}, newAddres, {upsert
     : true, new : true}).then(data => {
-      console.log('updated address', data);
+      // console.log('updated address', data);
       res.json(data)
     }).catch(err => {
-      console.log('error at updating', err);
+      // console.log('error at updating', err);
       res.status(401).json({error : err.message})
     })
   }

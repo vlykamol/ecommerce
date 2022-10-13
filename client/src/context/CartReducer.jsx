@@ -1,7 +1,7 @@
 import { types } from "./CartContext";
 import axios from "axios";
 
-export function cartReducer (state, action) {
+export default function cartReducer (state, action) {
   switch (action.type) {
     case types.SET_PRODUCTS:
       return { ...state, products : action.payload, filterdProducts: action.payload}

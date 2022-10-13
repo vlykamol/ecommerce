@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios"
 import { useReducer } from "react";
-import { cartReducer } from "./CartReducer";
+import cartReducer from "./CartReducer";
 import { useAuth } from "./AuthContext";
 
 

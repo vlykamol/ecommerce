@@ -1,18 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
-import { useAuth } from '../context/AuthContext';
+import { types, useAuth } from '../context/AuthContext';
 
 export default function Address() {
 
-  const { user } = useAuth()
+  const { user, state, dispatch } = useAuth()
+  const { address } = state
 
   const [isAddressEditable, setIsAddressEditable] = useState(false);
-
+  const [refresh, setRefresh] = useState(false)
+ 
   const addressLine1Ref = useRef()
   const addressLine2Ref = useRef()
   const cityRef = useRef()
   const postalCodeRef = useRef()
   const countryRef = useRef()
+
+  useEffect(() => {
+    addressLine1Ref.current.value = address.addressLine1;
+    addressLine2Ref.current.value = address.addressLine2;
+    cityRef.current.value = address.city;
+    postalCodeRef.current.value = address.postalCode;
+    countryRef.current.value = address.country
+  }, [refresh])
 
   useEffect(() => {
     axios
@@ -22,11 +32,17 @@ export default function Address() {
       },
     })
     .then((res) => {
-      addressLine1Ref.current.value = res.data.addressLine1;
-      addressLine2Ref.current.value = res.data.addressLine2;
-      cityRef.current.value = res.data.city;
-      postalCodeRef.current.value = res.data.postalCode;
-      countryRef.current.value = res.data.country
+      dispatch({
+        type: types.SET_ADDRESS,
+        payload : {
+          addressLine1 : res.data.addressLine1,
+          addressLine2 : res.data.addressLine2,
+          city : res.data.city,
+          postalCode : res.data.postalCode,
+          country : res.data.country
+        }
+      })
+      setRefresh(e => e = !e)
     })
     .catch((err) => console.log(err));
   }, [isAddressEditable])
@@ -46,11 +62,16 @@ export default function Address() {
         }
       })
       .then((res) => {
-        addressLine1Ref.current.value = res.data.addressLine1;
-        addressLine2Ref.current.value = res.data.addressLine2;
-        cityRef.current.value = res.data.city;
-        postalCodeRef.current.value = res.data.postalCode;
-        countryRef.current.value = res.data.country
+        dispatch({
+          type: types.SET_ADDRESS,
+          payload : {
+            addressLine1 : res.data.addressLine1,
+            addressLine2 : res.data.addressLine2,
+            city : res.data.city,
+            postalCode : res.data.postalCode,
+            country : res.data.country
+          }
+        })
         setIsAddressEditable((e) => (e = !e));
       })
       .catch((err) => console.log(err));

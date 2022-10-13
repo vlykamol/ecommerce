@@ -2,12 +2,19 @@ import { createContext, useContext, useState } from "react";
 import {  useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import useSessionStorage from "../utilities/useSessionStorage";
+import { useReducer } from "react";
+import profileReducer from "./ProfileReducer";
 
 
 const AuthContext = createContext(null)
 
 export function useAuth() {
   return useContext(AuthContext)
+}
+
+export const types = {
+  SET_PROFILE : 'setProfile',
+  SET_ADDRESS : 'setAddress'
 }
 
 export function AuthProvider({children}){
@@ -17,6 +24,11 @@ export function AuthProvider({children}){
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [user, setUser] = useSessionStorage('user', {})
+
+  const [state, dispatch] = useReducer(profileReducer, {
+    profile : {},
+    address : {}
+  })
 
 
   const signup = (firstName, lastName, email, password) => {
@@ -53,6 +65,8 @@ export function AuthProvider({children}){
   const value = {
     user,
     message,
+    state,
+    dispatch,
     setMessage,
     signup,
     login,

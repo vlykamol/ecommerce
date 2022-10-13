@@ -1,6 +1,7 @@
 import { useCart } from '../context/CartContext'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useAuth } from '../context/AuthContext'
 
 
 const loadScript = (src) => {
@@ -20,14 +21,14 @@ const loadScript = (src) => {
 export default function Billing() {
 
   const {state : {cart}, amount } = useCart()
-  const [message, setMessage] = useState("");
+  const { state : {profile}, user } = useAuth()
 
-  const createCheckOutSession = () => {
-    axios.post('http://localhost:8080/payment/create-checkout-session',cart).then(res => {
-      console.log('res from stripe',res);
-      window.location.href = `${res.data}`
-    }).catch(err => console.log('error', err))
-  }
+  // const createCheckOutSession = () => {
+  //   axios.post('http://localhost:8080/payment/create-checkout-session',cart).then(res => {
+  //     console.log('res from stripe',res);
+  //     window.location.href = `${res.data}`
+  //   }).catch(err => console.log('error', err))
+  // }
 
   const razorPayCheckOut = () => {
 
@@ -43,15 +44,15 @@ export default function Billing() {
         "image": "/vite.svg",
         "order_id": `${order.data.id}`, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         "handler": function (response){
-            alert(response.razorpay_payment_id);
-            alert(response.razorpay_order_id);
-            alert(response.razorpay_signature)
+          alert(response.razorpay_payment_id);
+          alert(response.razorpay_order_id);
+          alert(response.razorpay_signature)
         },
-        "prefill": {
-            "name": "Gaurav Kumar",
-            "email": "gaurav.kumar@example.com",
-            "contact": "9999999999"
-        }
+        "prefill": user.accessToken ? {
+          "name": profile.firstName,
+          "email": user.email,
+          "contact": profile.contact,
+        } : {},
     };
 
     const paymentObject = new Razorpay(options)
@@ -61,20 +62,6 @@ export default function Billing() {
       console.log('razorPay failed', err.message);
     })
   }
-
-  useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-
-    if (query.get("success")) {
-      setMessage("Order placed! You will receive an email confirmation.");
-    }
-
-    if (query.get("canceled")) {
-      setMessage(
-        "Order canceled -- continue to shop around and checkout when you're ready."
-      );
-    }
-  }, [])
 
   return (
     <div className='w-full sm:w-1/3 p-2 bg-white/75 text-black border-l-2 flex flex-col justify-between'>
