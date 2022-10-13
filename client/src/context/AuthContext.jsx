@@ -17,6 +17,9 @@ export const types = {
   SET_ADDRESS : 'setAddress'
 }
 
+// export const uri = `http://localhost:8080`
+export const uri = ``
+
 export function AuthProvider({children}){
 
   const navigate = useNavigate();
@@ -34,7 +37,7 @@ export function AuthProvider({children}){
   const signup = (firstName, lastName, email, password) => {
     setLoading(true)
     setMessage('');
-    axios.post('http://localhost:8080/auth/signup',  {firstName, lastName, email, password}).then(res => {
+    axios.post(`${uri}/auth/signup`,  {firstName, lastName, email, password}).then(res => {
       console.log(res)
       navigate('/login')
     }).catch(err => {
@@ -47,7 +50,7 @@ export function AuthProvider({children}){
   const login = (email, password) => {
     setLoading(true)
     setMessage('');
-    axios.post('http://localhost:8080/auth/login',  {email, password}).then(res => {
+    axios.post(`${uri}/auth/login`,  {email, password}).then(res => {
       console.log(res)
       setUser(res.data)
       navigate('/')
@@ -69,7 +72,7 @@ export function AuthProvider({children}){
   useEffect(() => {
     if(!user.accessToken) return
     axios
-      .get("http://localhost:8080/user/profile", {
+      .get(`${uri}/user/profile`, {
         headers: {
           authorization: `Bearer ${user.accessToken}`,
         },
@@ -82,7 +85,7 @@ export function AuthProvider({children}){
             firstName : res.data.firstName,
             lastName : res.data.lastName,
             contact : res.data.contact,
-            DOB : res.data.DOB.split('T')[0]
+            DOB : res.data.DOB ? res.data.DOB.split('T')[0] : ''
           }
         })
       })

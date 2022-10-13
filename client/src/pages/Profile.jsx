@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
-import { types, useAuth } from "../context/AuthContext";
+import { types, useAuth, uri } from "../context/AuthContext";
 import Address from "../components/Address";
 import Orders from "../components/Orders";
 
@@ -18,7 +18,6 @@ export default function Profile() {
 
   useEffect(() => {
     if(!profile.firstName) return
-    
     firstNameRef.current.value = profile.firstName,
     lastNameRef.current.value = profile.lastName,
     contactRef.current.value = profile.contact,
@@ -28,7 +27,7 @@ export default function Profile() {
   const updateProfile = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8080/user/profile", {
+      .post(`${uri}/user/profile`, {
         firstName: firstNameRef.current.value,
         lastName : lastNameRef.current.value,
         contact : contactRef.current.value,

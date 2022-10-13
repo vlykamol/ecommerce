@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios"
 import { useReducer } from "react";
 import cartReducer from "./CartReducer";
-import { useAuth } from "./AuthContext";
+import { uri, useAuth } from "./AuthContext";
 
 
 const CartContext = createContext()
@@ -29,13 +29,13 @@ export const types = {
 }
 
 export function CartProvider({children}) {
-
-  const { user } = useAuth()
   
   const [loading, setLoading] = useState(false)
   const [products, setproducts] = useState([])
   const [category, setCategory] = useState([])
   const [amount, setAmount] = useState(0)
+
+  const { user } = useAuth()
 
   const [state, dispatch] = useReducer(cartReducer, {
     products : products,
@@ -45,7 +45,7 @@ export function CartProvider({children}) {
 
   useEffect(() => {
     setLoading(true)
-    axios.get('http://localhost:8080/products').then(res => {
+    axios.get(`${uri}/products`).then(res => {
       setproducts(res.data)
     }).catch(err => console.log(err))
     setLoading(false)
@@ -53,8 +53,7 @@ export function CartProvider({children}) {
 
   useEffect(() => {
     if(!user.accessToken) return
-
-    axios.get('http://localhost:8080/user/cart', {
+    axios.get(`${uri}/user/cart`, {
       headers:{
         authorization : `Bearer ${user.accessToken}`
       }

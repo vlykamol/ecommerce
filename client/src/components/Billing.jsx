@@ -1,7 +1,7 @@
 import { useCart } from '../context/CartContext'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useAuth } from '../context/AuthContext'
+import { useAuth, uri } from '../context/AuthContext'
 
 
 const loadScript = (src) => {
@@ -33,8 +33,8 @@ export default function Billing() {
   const razorPayCheckOut = () => {
 
     loadScript("https://checkout.razorpay.com/v1/checkout.js").then(res =>{
-      axios.post('http://localhost:8080/payment/razorpayCheckout',{_id : user.accessToken ? profile._id : 'guest', cart}).then(order => {
-      console.log('res from razorPay',order);
+      axios.post(`${uri}/payment/razorpayCheckout`,{_id : user.accessToken ? profile._id : 'guest', cart}).then(order => {
+      // console.log('res from razorPay',order);
       var options = {
         "key": "rzp_test_SWVOO1lUyi4oSC", // Enter the Key ID generated from the Dashboard
         "amount": `${order.data.amount}`, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise

@@ -1,5 +1,6 @@
 import { types } from "./CartContext";
 import axios from "axios";
+import {uri} from './AuthContext'
 
 export default function cartReducer (state, action) {
   switch (action.type) {
@@ -35,9 +36,10 @@ export default function cartReducer (state, action) {
 
     case types.UPDATE_CART : {
         if (action.payload.accessToken) {
+          // console.log('updating cart');
           axios
             .post(
-              "http://localhost:8080/user/cart",
+              `${uri}/user/cart`,
               {
                 cart: state.cart,
               },
@@ -54,6 +56,7 @@ export default function cartReducer (state, action) {
             })
             .catch((err) => console.log(err));
         }
+        console.log(state.cart);
       return state
     }
 

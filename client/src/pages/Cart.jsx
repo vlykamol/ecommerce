@@ -1,12 +1,16 @@
 import React from 'react'
-import { useCart } from '../context/CartContext'
+import { useCart, types } from '../context/CartContext'
 import Billing from '../components/Billing';
 import CartItemCard from '../components/CartItemCard';
 import { Link } from 'react-router-dom';
 
 export default function Cart() {
+
+  
   const { state } = useCart()
   const { cart } = state
+
+  console.log('cart--', cart);
   
   return (
     <div className="w-full flex flex-col sm:flex-row grow">

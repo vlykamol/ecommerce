@@ -24,7 +24,7 @@ module.exports = {
     const _id = req.user._id
     const newProfile = new profileTemplate({...req.body})
     // console.log('newProfile', newProfile);
-    profile.findOneAndUpdate(_id, newProfile, {upsert
+    profile.findOneAndUpdate({_id}, newProfile, {upsert
     : true, new: true}).then(data => {
       // console.log('updated data', data);
       res.json(data)
@@ -47,14 +47,14 @@ module.exports = {
 
   updateCart: (req, res) => {
     const _id = req.user._id
+    // console.log('cart id', _id);
     const tempCart = req.body.cart
     const newCart = new cartTemplate({
       products : [...tempCart.map(c => {
         return {_id : c._id , quantity : c.quantity}
       })]
     })
-    // console.log('newCart', newCart);
-    cart.findOneAndUpdate(_id, newCart, {upsert
+    cart.findOneAndUpdate({_id}, newCart, {upsert
     : true, new: true}).populate({path: 'products._id'}).then(data => {
       // console.log('updated data', data);
       res.json(data)
@@ -66,6 +66,7 @@ module.exports = {
 
   getAddress : (req, res) => {
     const _id = req.user._id
+    // console.log('getting address', _id);
     address.findById(_id).then(data => {
       // console.log('address', data);
       res.json(data)
@@ -94,7 +95,7 @@ module.exports = {
 
   getOrders : (req, res) => {
     const _id = req.user._id
-    console.log('user id', _id);
+    // console.log('user id', _id);
     order.find({user_id : _id, status: true}).then(data => {
       // console.log('orders : ', data)
       res.json(data)

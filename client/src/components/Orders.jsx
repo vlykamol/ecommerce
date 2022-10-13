@@ -2,7 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { useAuth } from '../context/AuthContext'
+import { useAuth, uri } from '../context/AuthContext'
 
 export default function Orders() {
   const [orders, setOrders] = useState([])
@@ -12,7 +12,7 @@ export default function Orders() {
     if(!profile._id) return
 
     axios
-    .get("http://localhost:8080/user/orders", {
+    .get(`${uri}/user/orders`, {
       headers: {
         authorization: `Bearer ${user.accessToken}`,
       },

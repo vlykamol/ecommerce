@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
-import { types, useAuth } from '../context/AuthContext';
+import { types, useAuth, uri } from '../context/AuthContext';
 
 export default function Address() {
 
@@ -26,7 +26,7 @@ export default function Address() {
 
   useEffect(() => {
     axios
-    .get("http://localhost:8080/user/address", {
+    .get(`${uri}/user/address`, {
       headers: {
         authorization: `Bearer ${user.accessToken}`,
       },
@@ -50,7 +50,7 @@ export default function Address() {
   const updateAddress = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8080/user/address", {
+      .post(`${uri}/user/address`, {
         addressLine1 : addressLine1Ref.current.value,
         addressLine2 : addressLine2Ref.current.value,
         city : cityRef.current.value,
