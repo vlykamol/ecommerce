@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 
 const invoiceTemplate = new mongoose.Schema({
-  orderId : {
+  order_id : {
     type: String
   },
   user: {

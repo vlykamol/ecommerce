@@ -23,27 +23,7 @@ export default function Profile() {
     dobRef.current.value = profile.DOB 
   }, [refresh])
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/user/profile", {
-        headers: {
-          authorization: `Bearer ${user.accessToken}`,
-        },
-      })
-      .then((res) => {
-        dispatch({
-          type: types.SET_PROFILE,
-          payload : {
-            firstName : res.data.firstName,
-            lastName : res.data.lastName,
-            contact : res.data.contact,
-            DOB : res.data.DOB.split('T')[0]
-          }
-        })
-        setRefresh(e => e = !e)
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  
 
   const updateProfile = (e) => {
     e.preventDefault();
@@ -72,6 +52,7 @@ export default function Profile() {
       })
       .catch((err) => console.log(err));
   };
+
 
   return (
     <div className="flex grow justify-center p-2 gap-1 flex-col sm:flex-row">

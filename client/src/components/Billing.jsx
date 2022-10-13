@@ -22,7 +22,7 @@ export default function Billing() {
 
   const {state : {cart}, amount } = useCart()
   const { state : {profile}, user } = useAuth()
-
+  
   // const createCheckOutSession = () => {
   //   axios.post('http://localhost:8080/payment/create-checkout-session',cart).then(res => {
   //     console.log('res from stripe',res);
@@ -33,7 +33,7 @@ export default function Billing() {
   const razorPayCheckOut = () => {
 
     loadScript("https://checkout.razorpay.com/v1/checkout.js").then(res =>{
-      axios.post('http://localhost:8080/payment/razorpayCheckout',cart).then(order => {
+      axios.post('http://localhost:8080/payment/razorpayCheckout',{_id : user.accessToken ? profile._id : 'guest', cart}).then(order => {
       console.log('res from razorPay',order);
       var options = {
         "key": "rzp_test_SWVOO1lUyi4oSC", // Enter the Key ID generated from the Dashboard

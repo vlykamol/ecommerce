@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {  useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import useSessionStorage from "../utilities/useSessionStorage";
@@ -59,8 +59,35 @@ export function AuthProvider({children}){
   }
 
   const logout = () => {
-    sessionStorage.clear()
+    setUser({})
+    dispatch({
+      type: types.SET_PROFILE,
+      payload : {}
+    })
   }
+
+  useEffect(() => {
+    if(!user.accessToken) return
+    axios
+      .get("http://localhost:8080/user/profile", {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`,
+        },
+      })
+      .then((res) => {
+        dispatch({
+          type: types.SET_PROFILE,
+          payload : {
+            _id: res.data._id,
+            firstName : res.data.firstName,
+            lastName : res.data.lastName,
+            contact : res.data.contact,
+            DOB : res.data.DOB.split('T')[0]
+          }
+        })
+      })
+      .catch((err) => console.log(err));
+  }, [user]);
 
   const value = {
     user,

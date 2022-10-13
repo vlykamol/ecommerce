@@ -43,9 +43,9 @@ module.exports = {
   // },
 
   razorPayCheckOut: (req, res) => {
-    const cart = req.body;
+    const {_id, cart} = req.body;
     const receipt = shortid.generate();
-    console.log("cart, ", cart);
+    // console.log("cart, ",_id, cart);
     var options = {
       amount: 0, // amount in the smallest currency unit
       currency: "INR",
@@ -62,6 +62,7 @@ module.exports = {
       .then((od) => {
         const order = new orderTemplate({
           order_id: od.id,
+          user_id : _id,
           products: [
             ...cart.map((c) => {
               return {
@@ -72,11 +73,11 @@ module.exports = {
           ],
           status: false,
         });
-        order.save();
+        order.save().then(o => console.log('new Order created', o.order_id)).catch(e => console.log('error creating new order', e.message));
         res.json(od);
       })
       .catch((err) => {
-        console.log('order err : ', err);
+        // console.log('order err : ', err);
         res.status(403).json({ error: err.message });
       });
   },
@@ -88,11 +89,11 @@ module.exports = {
     const digest = shasum.digest("hex");
 
     if (digest === req.headers["x-razorpay-signature"]) {
-      console.log("completed order", req.body.payload.payment);
+      // console.log("completed order", req.body.payload.payment);
       const entity = req.body.payload.payment.entity;
 
       const invoice = new invoiceTemplate({
-        orderId: entity.order_id,
+        order_id: entity.order_id,
         user: {
           _id: entity.userId,
           email: entity.email,
@@ -106,14 +107,12 @@ module.exports = {
         .then((data) => {
           order
             .findOneAndUpdate({ order_id: entity.order_id }, { status: true })
-            .then((d) => console.log("order status set to successful", d))
-            .catch((e) =>
-              console.log(`order status can't be set to successful`, e)
-            );
+            .then((d) => console.log("order status set to successful", d.order_id))
+            .catch((e) => console.log(`order status can't be set to successful`, e.message));
             res.status(200).json({ invoice : data });
         })
         .catch((err) => {
-          console.log("invoice not created", err);
+          console.log("invoice not created", err.message);
           res.status(500).json({ error: err.message });
         });
     } else {

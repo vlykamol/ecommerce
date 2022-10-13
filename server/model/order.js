@@ -4,6 +4,10 @@ const orderTemplate = new mongoose.Schema({
   order_id:{
     type: String,
   },
+  user_id : {
+    type: String,
+    required : true
+  },
   products:[{
     _id:{
       type : mongoose.Schema.Types.ObjectId,
