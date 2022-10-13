@@ -78,7 +78,7 @@ export default function Address() {
   }
 
   return (
-    <form className="bg-white/25 flex flex-col p-2 gap-2 w-full sm:w-96" onSubmit={(e) => updateAddress(e)}>
+    <form className="bg-white/25 flex flex-col p-2 gap-2 w-full sm:w-96 h-min" onSubmit={(e) => updateAddress(e)}>
           <div className='w-full flex justify-between p-2'>
             <h1 className='text-xl underline'>Address</h1>
             {isAddressEditable ? (<></>

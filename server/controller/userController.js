@@ -5,6 +5,7 @@ const cartTemplate = require('../model/cart')
 const addres = require('../model/address')
 const addressTemplate = require('../model/address')
 const address = require('../model/address')
+const order = require('../model/order')
 
 
 module.exports = {
@@ -88,6 +89,18 @@ module.exports = {
     }).catch(err => {
       // console.log('error at updating', err);
       res.status(401).json({error : err.message})
+    })
+  },
+
+  getOrders : (req, res) => {
+    const _id = req.user._id
+    console.log('user id', _id);
+    order.find({user_id : _id, status: true}).then(data => {
+      // console.log('orders : ', data)
+      res.json(data)
+    }).catch(err => {
+      // console.log('order err', err.message)
+      res.status(500).json({message : "orders not found"})
     })
   }
 }

@@ -12,6 +12,6 @@ router.post('/address', userController.updateAddress)
 router.get('/cart', userController.getCart)
 router.post('/cart', userController.updateCart)
 
-// router.get('/invoice', )
+router.get('/orders', userController.getOrders)
 
 module.exports = router

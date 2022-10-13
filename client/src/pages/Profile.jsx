@@ -4,12 +4,12 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { types, useAuth } from "../context/AuthContext";
 import Address from "../components/Address";
+import Orders from "../components/Orders";
 
 export default function Profile() {
   const { user, state , dispatch } = useAuth();
   const { profile } = state
   const [isEditable, setIsEditable] = useState(false);
-  const [refresh, setRefresh] = useState(false)
 
   const firstNameRef = useRef();
   const lastNameRef = useRef();
@@ -17,13 +17,13 @@ export default function Profile() {
   const dobRef = useRef();
 
   useEffect(() => {
+    if(!profile.firstName) return
+    
     firstNameRef.current.value = profile.firstName,
     lastNameRef.current.value = profile.lastName,
     contactRef.current.value = profile.contact,
     dobRef.current.value = profile.DOB 
-  }, [refresh])
-
-  
+  }, [profile])
 
   const updateProfile = (e) => {
     e.preventDefault();
@@ -58,7 +58,7 @@ export default function Profile() {
     <div className="flex grow justify-center p-2 gap-1 flex-col sm:flex-row">
       <form
         onSubmit={(e) => updateProfile(e)}
-        className="bg-white/25 flex flex-col p-2 gap-2 w-full sm:w-96"
+        className="bg-white/25 flex flex-col p-2 gap-2 w-full sm:w-96 h-min"
       >
         <div className="w-full flex justify-between p-2">
           <h1 className="text-xl underline">Profile</h1>
@@ -122,6 +122,7 @@ export default function Profile() {
             </button>) : <></>}
       </form>
       <Address />
+      <Orders />
     </div>
   );
 }

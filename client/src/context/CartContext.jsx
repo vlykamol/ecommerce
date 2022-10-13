@@ -48,23 +48,25 @@ export function CartProvider({children}) {
     axios.get('http://localhost:8080/products').then(res => {
       setproducts(res.data)
     }).catch(err => console.log(err))
-
-    if(user.accessToken){
-      axios.get('http://localhost:8080/user/cart', {
-        headers:{
-          authorization : `Bearer ${user.accessToken}`
-        }
-      }).then(res => {
-        dispatch({
-          type: types.SET_CART,
-          payload : [...res.data.products.map(p => {
-            return {...p._id, quantity: p.quantity}
-          })]
-        })
-      }).catch(err => console.log(err))
-    }
     setLoading(false)
   },[])
+
+  useEffect(() => {
+    if(!user.accessToken) return
+
+    axios.get('http://localhost:8080/user/cart', {
+      headers:{
+        authorization : `Bearer ${user.accessToken}`
+      }
+    }).then(res => {
+      dispatch({
+        type: types.SET_CART,
+        payload : [...res.data.products.map(p => {
+          return {...p._id, quantity: p.quantity}
+        })]
+      })
+    }).catch(err => console.log(err))
+  },[user])
   
   useEffect(() => {
     dispatch({

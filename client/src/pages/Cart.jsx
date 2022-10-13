@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 export default function Cart() {
   const { state } = useCart()
   const { cart } = state
+  
   return (
     <div className="w-full flex flex-col sm:flex-row grow">
       <div className='w-full sm:w-2/3 max-h-screen flex flex-col gap-2 p-2 overflow-auto'>
