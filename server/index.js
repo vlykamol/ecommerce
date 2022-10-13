@@ -4,7 +4,6 @@ const axios = require('axios')
 const mongoose = require('mongoose')
 const path = require('path')
 const cors = require('cors')
-const bodyParser = require('body-parser')
 
 require('dotenv').config()
 
@@ -23,9 +22,6 @@ app.use(express.static(path.join(__dirname, '../client/dist')))
 
 //when froentend is running on different port
 app.use(cors())
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-
 
 const authRoute = require('./route/authRoute')
 const userRoute = require('./route/userRoute')

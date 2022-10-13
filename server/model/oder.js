@@ -4,8 +4,10 @@ const orderTemplate = new mongoose.Schema({
   user: {
     _id:{
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'user',
-      required: true
+      ref: 'user'
+    },
+    email:{
+      type: String
     }
   },
   products:[{

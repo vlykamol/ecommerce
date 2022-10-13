@@ -1,19 +1,65 @@
 import { useCart } from '../context/CartContext'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+
+
+const loadScript = (src) => {
+  return new Promise(resolve => {
+    const script = document.createElement('script')
+    script.src = src
+    script.onload = () => {
+      resolve(true)
+    }
+    script.onerror = () => {
+      resolve(false)
+    }
+    document.body.appendChild(script)
+  })
+}
+
 export default function Billing() {
 
   const {state : {cart}, amount } = useCart()
   const [message, setMessage] = useState("");
 
-  const navigate = useNavigate()
-
   const createCheckOutSession = () => {
     axios.post('http://localhost:8080/payment/create-checkout-session',cart).then(res => {
-      console.log('res',res);
+      console.log('res from stripe',res);
       window.location.href = `${res.data}`
     }).catch(err => console.log('error', err))
+  }
+
+  const razorPayCheckOut = () => {
+
+    loadScript("https://checkout.razorpay.com/v1/checkout.js").then(res =>{
+      axios.post('http://localhost:8080/payment/razorpayCheckout',cart).then(order => {
+      console.log('res from razorPay',order);
+      var options = {
+        "key": "rzp_test_SWVOO1lUyi4oSC", // Enter the Key ID generated from the Dashboard
+        "amount": `${order.data.amount}`, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": `${order.data.currency}`,
+        "name": "eCommerce",
+        "description": "Test Transaction",
+        "image": "/vite.svg",
+        "order_id": `${order.data.id}`, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response){
+            alert(response.razorpay_payment_id);
+            alert(response.razorpay_order_id);
+            alert(response.razorpay_signature)
+        },
+        "prefill": {
+            "name": "Gaurav Kumar",
+            "email": "gaurav.kumar@example.com",
+            "contact": "9999999999"
+        }
+    };
+
+    const paymentObject = new Razorpay(options)
+    paymentObject.open()
+      }).catch(err => console.log('error', err))
+    }).catch(err => {
+      console.log('razorPay failed', err.message);
+    })
   }
 
   useEffect(() => {
@@ -46,7 +92,7 @@ export default function Billing() {
       </div>
       <div className='p-2 flex justify-between'>
         <div>Total amount: {amount}</div>
-        <button onClick={() => createCheckOutSession()} className='bg-lime-600 p-1 rounded'>check out</button>
+        <button onClick={() => razorPayCheckOut()} className='bg-lime-600 p-1 rounded'>check out</button>
       </div>
     </div>
   )
