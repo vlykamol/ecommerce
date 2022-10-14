@@ -9,11 +9,7 @@
 
 
 ## copy repo and goto server directory
-<<<<<<< HEAD
 `npm start` will start server and serve static files on localhost
-=======
- `npm start` will start server and serve static files on localhost
->>>>>>> 11182628c98a094ef74c1b65ffab2132b09e4763
 
 
  for razorpay to work you'll need razorpay account 
@@ -28,8 +24,4 @@
 - RAZORPAY_KEY_ID
 - RAZORPAY_WEBHOOK_SECRET
 
-<<<<<<< HEAD
-### also add razorpay client id to frontend billing component
-=======
-## also add razorpay client id to frontend billing component
->>>>>>> 11182628c98a094ef74c1b65ffab2132b09e4763
+also add razorpay client id to frontend billing component
