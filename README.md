@@ -11,6 +11,10 @@
 ## copy repo and goto server directory
 `npm start` will start server and serve static files on localhost
 
+## for devlopment
+ start server by `cd server` `npm start`
+ goto client `npm run dev`
+ change *uri* in AuthContext to http:localhost:8080
 
  for razorpay to work you'll need razorpay account 
  for razorpay webhook to test on localhost we can use ngrok 
