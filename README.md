@@ -9,7 +9,7 @@
 
 
 ## copy repo and goto server directory
-### npm start will start server and serve static files on localhost
+ `npm start` will start server and serve static files on localhost
 
 
 ## for razorpay to work you'll need razorpay account 
