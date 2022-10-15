@@ -1,0 +1,7 @@
+name: eCommerce
+on: [push]
+jobs:
+  build-project:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "hey"
