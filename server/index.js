@@ -9,7 +9,7 @@ require('dotenv').config()
 
 const app = express()
 const server = http.createServer(app)
-const PORT = 8080 || process.env.PORT
+const PORT = process.env.PORT || 8080
 
 mongoose.connect(process.env.DATABASE_URI).then(() => {
   console.log(`database connected`);
