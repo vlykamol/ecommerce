@@ -31,6 +31,7 @@ jobs:
           cd .vercel
           touch project.json
           echo "{\"orgId\":\"$VERCEL_ORG_ID\",\"projectId\":\"$VERCEL_PROJECT_ID\"}"
+      - name: deploy project
         run: |
           cd server && vercel --prod --token=$VERCEL_TOKEN
       - name: project deployed
