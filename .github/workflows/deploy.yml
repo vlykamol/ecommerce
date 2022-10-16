@@ -13,8 +13,7 @@ jobs:
       - name: build frontend project
         run: cd client && npm run build
       - name: frontend build
-        run: echo "successfull"
-        run: tree
+        run: echo "successfull" && tree
       - name: installing server dependencies
         run: cd server && npm install
       - name: deploying project
