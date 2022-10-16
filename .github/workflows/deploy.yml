@@ -20,8 +20,6 @@ jobs:
         run: cd client && npm install
       - name: build frontend project
         run: cd client && npm run build
-      - name: frontend build
-        run: echo "successfull"
       - name: installing server dependencies
         run: cd server && npm install
       - name: seting up vercel env
