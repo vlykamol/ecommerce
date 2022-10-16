@@ -3,6 +3,14 @@ on: [push]
 jobs:
   build-project:
     runs-on: ubuntu-latest
+    env:
+      VERCEL_TOKEN: ${{secrets.VERCEL_TOKEN}}
+      VERCEL_ORG_ID: ${{secrets.VERCEL_ORG_ID}}
+      VERCEL_PROJECT_ID: ${{secrets.VERCEL_PROJECT_ID}}
+      MONGODB_URI: ${{secrets.MONGODB_URI}}
+      JWT_ACCESS_TOKEN: ${{secrets.JWT_ACCESS_TOKEN}}
+      RAZORPAY_SECRET: ${{secrets.RAZORPAY_SECRET}}
+      RAZORPAY_KEY_ID: ${{secrets.RAZORPAY_KEY_ID}}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -18,13 +26,14 @@ jobs:
         run: cd server && npm install
       - name: deploying project
         env:
-          VERCEL_ORG_ID: NwYqIbJqU8sccogCaKf0XDdI
-          VERCEL_PROJECT_ID: prj_2w3M4whu4aQNv8N1VOaTWEtmIERS
-          MONGODB_URI: mongodb+srv://valay:qt3xvYK8H0Hy0nFG@cluster0.mcpjvb5.mongodb.net/test
-          JWT_ACCESS_TOKEN: 2a50670925ee66d1e6808254dbf551bc8fec8d6beaa53a5091a79b4d3f33e17013bbd932d6d686380c4677444ac3b4a2aaf2672e596013c72e63a916500491ac
-          RAZORPAY_SECRET: wYzbh51mFVQKx1AoX1mQ4B4Z
-          RAZORPAY_KEY_ID: rzp_test_SWVOO1lUyi4oSC
-        run: cd server && npm run deploy
+          VERCEL_ORG_ID: env.VERCEL_ORG_ID
+          VERCEL_PROJECT_ID: env.VERCEL_PROJECT_ID
+          MONGODB_URI: env.MONGODB_URI
+          JWT_ACCESS_TOKEN: env.JWT_ACCESS_TOKEN
+          RAZORPAY_SECRET: env.RAZORPAY_SECRET
+          RAZORPAY_KEY_ID: env.RAZORPAY_KEY_ID
+        run: |
+          cd server && vercel --prod --token=env.VERCEL_TOKEN
       - name: project deployed
         run: echo "successfull"
 
