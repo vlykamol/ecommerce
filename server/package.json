@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "deploy": "vercel --prod --token=prj_vfsLxu2RNOzInTxfIKEYbxtKCerk"
+    "deploy": "vercel --prod --token=wRl5fi8GvD8YXTTPLMLa2cFn"
   },
   "keywords": [],
   "author": "",
