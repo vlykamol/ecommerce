@@ -27,7 +27,7 @@ jobs:
       - name: deploying project
         env:
           VERCEL_ORG_ID: $VERCEL_ORG_ID
-          VERCEL_PROJECT_ID: $VERCEL_PROJECT_ID
+          VERCEL_PROJECT_ID: prj_2w3M4whu4aQNv8N1VOaTWEtmIERS
           MONGODB_URI: $MONGODB_URI
           JWT_ACCESS_TOKEN: $JWT_ACCESS_TOKEN
           RAZORPAY_SECRET: $RAZORPAY_SECRET
