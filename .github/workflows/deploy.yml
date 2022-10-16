@@ -24,14 +24,13 @@ jobs:
         run: echo "successfull"
       - name: installing server dependencies
         run: cd server && npm install
-      - name: deploying project
-        env:
-          VERCEL_ORG_ID: $VERCEL_ORG_ID
-          VERCEL_PROJECT_ID: prj_2w3M4whu4aQNv8N1VOaTWEtmIERS
-          MONGODB_URI: $MONGODB_URI
-          JWT_ACCESS_TOKEN: $JWT_ACCESS_TOKEN
-          RAZORPAY_SECRET: $RAZORPAY_SECRET
-          RAZORPAY_KEY_ID: $RAZORPAY_KEY_ID
+      - name: seting up vercel env
+        run: |
+          cd server
+          mkdir .vercel
+          cd .vercel
+          touch project.json
+          echo "{\"orgId\":\"$VERCEL_ORG_ID\",\"projectId\":\"$VERCEL_PROJECT_ID\"}"
         run: |
           cd server && vercel --prod --token=$VERCEL_TOKEN
       - name: project deployed
