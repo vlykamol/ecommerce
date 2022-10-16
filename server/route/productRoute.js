@@ -6,6 +6,6 @@ const router = express.Router()
 
 router.get('/', productController.getProducts)
 router.get('/:_id', productController.getProduct)
-router.post('/', jwtAuth, productController.addProduct)
+// router.post('/', jwtAuth, productController.addProducts)
 
 module.exports = router

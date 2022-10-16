@@ -1,6 +1,5 @@
 const express = require('express')
 const http = require('http')
-const axios = require('axios')
 const mongoose = require('mongoose')
 const path = require('path')
 const cors = require('cors')
