@@ -10,7 +10,7 @@ export default function Cart() {
   const { state } = useCart()
   const { cart } = state
 
-  console.log('cart--', cart);
+  // console.log('cart--', cart);
   
   return (
     <div className="w-full flex flex-col sm:flex-row grow">

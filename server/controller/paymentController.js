@@ -107,7 +107,9 @@ module.exports = {
         .then((data) => {
           order
             .findOneAndUpdate({ order_id: entity.order_id }, { status: true })
-            .then((d) => console.log("order status set to successful", d.order_id))
+            .then((d) => {
+              console.log("order status set to successful", d.order_id)
+            })
             .catch((e) => console.log(`order status can't be set to successful`, e.message));
             res.status(200).json({ invoice : data });
         })

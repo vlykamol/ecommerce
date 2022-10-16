@@ -11,14 +11,14 @@ const app = express()
 const server = http.createServer(app)
 const PORT = process.env.PORT || 8080
 
-mongoose.connect(process.env.DATABASE_URI).then(() => {
+mongoose.connect(process.env.MONGODB_URI).then(() => {
   console.log(`database connected`);
 }).catch(err =>{
   console.log('error while connecting database', err);
 })
 
 app.use(express.json())
-app.use(express.static(path.join(__dirname, '../client/dist')))
+app.use(express.static(path.join(__dirname, './dist/')))
 
 //when froentend is running on different port
 app.use(cors())
@@ -35,7 +35,7 @@ app.use('/products', productRoute)
 app.use('/payment', paymentRoute)
 
 app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, '../client//dist/index.html'))
+  res.sendFile(path.join(__dirname, './dist/index.html'))
 })
 
 server.listen(PORT, () => {
