@@ -26,14 +26,14 @@ jobs:
         run: cd server && npm install
       - name: deploying project
         env:
-          VERCEL_ORG_ID: env.VERCEL_ORG_ID
-          VERCEL_PROJECT_ID: env.VERCEL_PROJECT_ID
-          MONGODB_URI: env.MONGODB_URI
-          JWT_ACCESS_TOKEN: env.JWT_ACCESS_TOKEN
-          RAZORPAY_SECRET: env.RAZORPAY_SECRET
-          RAZORPAY_KEY_ID: env.RAZORPAY_KEY_ID
+          VERCEL_ORG_ID: $VERCEL_ORG_ID
+          VERCEL_PROJECT_ID: $VERCEL_PROJECT_ID
+          MONGODB_URI: $MONGODB_URI
+          JWT_ACCESS_TOKEN: $JWT_ACCESS_TOKEN
+          RAZORPAY_SECRET: $RAZORPAY_SECRET
+          RAZORPAY_KEY_ID: $RAZORPAY_KEY_ID
         run: |
-          cd server && vercel --prod --token=env.VERCEL_TOKEN
+          cd server && vercel --prod --token=$VERCEL_TOKEN
       - name: project deployed
         run: echo "successfull"
 
