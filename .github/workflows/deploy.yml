@@ -13,11 +13,13 @@ jobs:
       - name: build frontend project
         run: cd client && npm run build
       - name: frontend build
-        run: echo "successfull" && tree
+        run: echo "successfull"
       - name: installing server dependencies
         run: cd server && npm install
       - name: deploying project
         env:
+          VERCEL_ORG_ID: NwYqIbJqU8sccogCaKf0XDdI
+          VERCEL_PROJECT_ID: prj_vfsLxu2RNOzInTxfIKEYbxtKCerk
           MONGODB_URI: mongodb+srv://vercel-admin-user-634b5072b9e9de6636662e8e:Ffn3CeBTUZh11FNX@cluster0.mcpjvb5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
           JWT_ACCESS_TOKEN: 2a50670925ee66d1e6808254dbf551bc8fec8d6beaa53a5091a79b4d3f33e17013bbd932d6d686380c4677444ac3b4a2aaf2672e596013c72e63a916500491ac
           RAZORPAY_SECRET: wYzbh51mFVQKx1AoX1mQ4B4Z
