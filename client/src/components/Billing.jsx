@@ -36,7 +36,7 @@ export default function Billing() {
       axios.post(`${uri}/payment/razorpayCheckout`,{_id : user.accessToken ? profile._id : 'guest', cart}).then(order => {
       // console.log('res from razorPay',order);
       var options = {
-        "key": "rzp_test_SWVOO1lUyi4oSC", // Enter the Key ID generated from the Dashboard
+        "key": "rzp_test_KNye8Y4LgRxHUd", // Enter the Key ID generated from the Dashboard
         "amount": `${order.data.amount}`, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         "currency": `${order.data.currency}`,
         "name": "eCommerce",
